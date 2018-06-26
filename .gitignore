@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+log.txt
+tmp
+tmp/*
+
+# numpy save files
+*.npy
