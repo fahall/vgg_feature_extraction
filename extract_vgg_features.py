@@ -13,6 +13,7 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, Dataset
 from torchvision.datasets import ImageFolder
 from torchvision.models import vgg
+from tqdm import tqdm
 
 
 def setup_custom_logger(name):
@@ -71,10 +72,10 @@ def choose_device(use_cuda=True):
 
 def get_features(mydata, net, device):
     features = []
-    for batch_idx, data in enumerate(mydata):
+    for batch_idx, data in tqdm(enumerate(mydata)):
         input, target = data[0].to(device), data[1].to(device)
         features.append(net(input))
-    return np.vstack([f.numpy() for f in features])
+    return np.vstack([f.cpu().data.numpy() for f in features])
 
 
 def save_features(features, path):
